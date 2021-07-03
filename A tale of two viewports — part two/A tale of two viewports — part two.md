@@ -27,16 +27,14 @@ Chris 的解释如下：
 可视视口是用户当前在屏幕上看到的内容，用户可以通过滚动来改变可见内容，也可以通过缩放来改变可视视口的大小。  
 ![mobile_visualviewport](./mobile_visualviewport.jpeg)
 
-然而，CSS布局，特别是百分比单位的宽度，是相对于布局视口来计算的，而布局适口要比可视视口大很多。
+然而，CSS布局，特别是百分比单位的宽度，是相对于布局视口来计算的，而布局视口要比可视视口大很多。
 
 因此，html元素的宽度使用布局视口的来初始化，这就好像你的屏幕比手机屏幕要宽很多，这样可以确保网页在移动端表现得跟在PC端上一致。
 
 那么布局视口有多宽呢？每个浏览器都不一样，Safari iPhone - 980px, Opera - 850px, Android WebKit - 800px, IE - 974px
 
 ## 缩放
-Both viewports are measured in CSS pixels, obviously. But while the visual viewport dimensions change with zooming (if you zoom in, less CSS pixels fit on the screen), the layout viewport dimensions remain the same. (If they didn’t your page would constantly reflow as percentual widths are recalculated.)
-
-可视视口和布局视口都是使用 css像素进行测量的。可视视口的尺寸会因为缩放而发生变化（如果放大，则屏幕上的css像素尺寸变大，css像素数量就会减少，可视视口的尺寸就变小了，css像素数量决定了可视视口的尺寸？），而布局适口的尺寸会一直保持不变。如果不是这样，那么你的页面将会不断回流，因为百分比宽度一直在重新计算。
+可视视口和布局视口都是使用 css像素进行测量的。可视视口的尺寸会因为缩放而发生变化（如果放大，则屏幕上的css像素尺寸变大，css像素数量就会减少，可视视口的尺寸就变小了，css像素数量决定了可视视口的尺寸？），而布局视口的尺寸会一直保持不变。如果不是这样，那么你的页面将会不断回流，因为百分比宽度一直在重新计算。
 
 ## 布局视口的理解
 为了有助于理解布局视口，我们需要看看网页在完全缩小的情况下是怎样的。许多移动端浏览器都会以完全缩小的模式来初始化页面。
@@ -44,26 +42,26 @@ Both viewports are measured in CSS pixels, obviously. But while the visual viewp
 重点是浏览器会选择他们各自的布局视口尺寸，这使得它会以完全缩小的模式覆盖屏幕，此时，可视视口是跟布局适口一样的。如下图：  
 ![mobile_viewportzoomedout](./mobile_viewportzoomedout.jpeg)
 
-因此，布局视口的宽度和高度等于在最大缩放模式下在屏幕上显示的任何内容？？ 当用户在这些尺寸中缩放时保持相同？？ 如下图：
+因此，布局视口的宽度和高度等于在最大缩放模式下在屏幕上显示的任何内容？？ 当用户在这些尺寸中缩放时保持相同？？ 如下图：  
 ![mobile_layoutviewport](./mobile_layoutviewport.jpeg)
 
-如果您旋转手机，则可视视口会发生变化，但浏览器会通过稍微缩放以适应新的方向，这样便使布局视口再次与可视视口相同了。
-![mobile_viewportzoomedout_la](./mobile_viewportzoomedout_la.jpeg)
+如果您旋转手机，则可视视口会发生变化，但浏览器会通过稍微缩放以适应新的方向，这样便使布局视口再次与可视视口相同了：  
+![mobile_viewportzoomedout_la](./mobile_viewportzoomedout_la.jpeg)  
 ![mobile_layoutviewport_la](./mobile_layoutviewport_la.jpeg)
 
 ## 测量布局视口
 document.documentElement.clientWidth / document.documentElement.clientHeight 可用于获取布局视口尺寸，采用的是css像素进行测量的  
-![mobile_client](./mobile_client.jpeg)
+![mobile_client](./mobile_client.jpeg)  
 ![mobile_client_la](./mobile_client_la.jpeg)
 
 ## 测量可视视口
 window.innerWidth / window.innerHeight 用于获取可视视口的尺寸，使用css像素进行测量
-当用户放大网页，可视视口中css像素的尺寸变大，数量变少，可视适口的尺寸变小，
-当用户缩小网页，可视视口中css像素的尺寸变小，数量变多，可视适口的尺寸变大  
+当用户放大网页，可视视口中css像素的尺寸变大，数量变少，可视视口的尺寸变小，
+当用户缩小网页，可视视口中css像素的尺寸变小，数量变多，可视视口的尺寸变大  
 ![mobile_inner](./mobile_inner.jpeg)
 
 ## 屏幕
-window.screen.width / window.screen.height 获取屏幕尺寸，使用设备像素来测量的
+window.screen.width / window.screen.height 获取屏幕尺寸，使用设备像素来测量的  
 ![mobile_screen](./mobile_screen.jpeg)
 
 无法直接通过js提供的属性获取屏幕的缩放界别，但是可以通过 window.screen.width / window.innerWidth 来计算。一般情况下用不到缩放级别。一般我需要知道的是当前屏幕有多少css像素，这个可以使用window.innerWidth来获取。
@@ -77,7 +75,7 @@ document.documentElement.offsetWidth / document.documentElement.offsetHeight 用
 ![mobile_offset](./mobile_offset.jpeg)
 
 ## 媒体查询
-移动端的媒体查询与PC端的一样
+移动端的媒体查询与PC端的一样  
 ![mobile_mediaqueries](./mobile_mediaqueries.jpeg)
 
 ## 事件坐标
@@ -97,13 +95,21 @@ event.screenX / event.screenY 相对于屏幕，使用设备像素
 假设你开发了一个简单的页面，并且没有给元素设置宽度，那么它们的宽度将会等于布局宽度。大多数浏览器在初始化页面的时候都会把整个布局视口展示在屏幕，图下图：  
 ![mq_none](./mq_none.jpeg)
 
-这时，用户都会通过放大来浏览页面，但大多数浏览器会保持元素的宽度不变，这使得用户难以阅读文本。
+这时，用户都会通过放大来浏览页面，但大多数浏览器会保持元素的宽度不变，这使得用户难以阅读文本（这是因为布局视口的宽度不变，所以元素不会换行）。  
 ![mq_none_zoomed](./mq_none_zoomed.jpeg)
 
-现在可以尝试给html设置 width: 320px ，然后html元素就缩小了，同时其里面的元素也跟着缩小了。This works when the user zooms in, but not initially, when the user is confronted with a zoomed-out page that mostly contains nothing.
+现在可以尝试给html设置 width: 320px ，然后html元素就缩小了，同时其里面的元素也跟着缩小了。This works when the user zooms in, but not initially, when the user is confronted with a zoomed-out page that mostly contains nothing.  
 ![mq_html300](./mq_html300.jpeg)
 
-为了解决上面的问题，Apple就发明了meta viewport标签，当你设置 <meta name="viewport" content="width=320"> 时，就是给布局视口设置320px的宽度，下图给viewport添加了 width=screen.width，如图所示：
+为了解决上面的问题，Apple就发明了meta viewport标签，当你设置 \<meta name="viewport" content="width=320"\> 时，就是给布局视口设置320px的宽度，下图给viewport添加了 width=screen.width，如图所示：  
 ![mq_yes](./mq_yes.jpeg)
 
 你可以给布局视口设置任何的尺寸，包括 device-width 。有时候使用screen.width 没啥作用，因为设备像素量太高了。
+
+总结  
+1. 可视视口和布局视口的关系可以认为是用户通过在可视视口上滑动、缩放等操作在移动设备上查看布局视口上的内容。
+2. 布局视口 document.documentElement.clientWidth / document.documentElement.clientHeight
+3. 可视视口 window.innerWidth / window.innerHeight
+4. 滚动偏移量 window.pageXOffset / window.pageYOffset
+5. html文档的尺寸 document.documentElement.offsetWidth / document.documentElement.offsetHeight
+6. meta 标签添加 viewport 的设置来定义布局视口尺寸
